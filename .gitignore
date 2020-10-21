@@ -1,1 +1,3 @@
 /Backend/venv
+/.vscode
+/.mypy_cache
