@@ -5,6 +5,7 @@
 # Package Globals
 
 # Imports
-from typing import Any, Dict, List
+from typing import Any
+from ..Auth import auth_globals
 
-SpotifyToken = Any
+SpotifyToken = auth_globals.SpotifyToken

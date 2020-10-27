@@ -6,6 +6,7 @@
 
 # Imports
 from .spwrapper_globals import SpotifyToken
+from ..Auth import spotify_token
 from typing import Any, List, Dict, Union
 import requests
 
@@ -35,7 +36,11 @@ def get_user_top_artists(
                     requests.get(
                         "https://api.spotify.com/v1/me/top/artists",
                         params=payload,
-                        headers={"Authorization": auth_token.access},
+                        headers={
+                            "Authorization": spotify_token.Interface.get_access_token(
+                                auth_token
+                            )
+                        },
                     ).json()
                 )
             }
