@@ -5,12 +5,12 @@
 # SpotifyToken Interface Implementation
 
 from json import dumps, loads
-from .auth_globals import SpotifyToken, FERNET_KEY
+from .auth_globals import SpotifyToken, FERNET_KEY, auth_logger
 from cryptography.fernet import Fernet
 import requests
 
 
-class Interface:
+class TokenInterface:
     @staticmethod
     def refresh(token: SpotifyToken) -> SpotifyToken:
         new_token: SpotifyToken = requests.post(
@@ -28,7 +28,7 @@ class Interface:
     @staticmethod
     def encrypt(token: SpotifyToken) -> bytes:
         encrypter = Fernet(FERNET_KEY)
-        return encrypter.encrypt(Interface._to_bytes(token))
+        return encrypter.encrypt(TokenInterface._to_bytes(token))
 
     @staticmethod
     def decrypt(encypted_token: bytes) -> SpotifyToken:

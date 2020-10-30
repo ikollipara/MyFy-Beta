@@ -1,76 +1,73 @@
-# spwrapper/personalization.py
+# Spwrapper/personalization.py
 # Ian Kollipara
 # 2020.10.20
 # Wrapper calls for Spotify Web API
-# Personalization Section
+# Personalization Endpoints
 
 # Imports
-from .spwrapper_globals import SpotifyToken
-from ..Auth import spotify_token
-from typing import Any, List, Dict, Union
+from Backend.Auth import TokenInterface
+from ._spwrapper_globals import SpotifyToken, TimeRange
+from typing import List, Dict, Union
 import requests
 
 
-def parse_spotify_json(spotify_json: Dict) -> List:
-    """ Parse the given JSON and return inner results. """
-    return spotify_json["items"]
-
-
 def get_user_top_artists(
-    auth_token: SpotifyToken, time_range: List[str], limit: int = 20, offset: int = 0
-) -> Dict[str, List]:
+    auth_token: SpotifyToken,
+    time_range: List[TimeRange],
+    limit: int = 20,
+    offset: int = 0,
+) -> Dict[TimeRange, List]:
     """ Return a Dictionary, labeled by time_range, of top Artists. """
 
-    top_artists: Dict[str, List] = {}
+    top_artists: Dict[TimeRange, List] = {}
 
     for time in time_range:
         payload: Dict[str, Union[str, int]] = {
-            "time_range": time,
+            "time_range": time.value,
             "limit": limit,
             "offset": offset,
         }
 
         top_artists.update(
             {
-                time: parse_spotify_json(
-                    requests.get(
-                        "https://api.spotify.com/v1/me/top/artists",
-                        params=payload,
-                        headers={
-                            "Authorization": spotify_token.Interface.get_access_token(
-                                auth_token
-                            )
-                        },
-                    ).json()
-                )
+                time: requests.get(
+                    "https://api.spotify.com/v1/me/top/artists",
+                    params=payload,
+                    headers={
+                        "Authorization": TokenInterface.get_access_token(auth_token)
+                    },
+                ).json()["items"]
             }
         )
     return top_artists
 
 
 def get_user_top_tracks(
-    auth_token: SpotifyToken, time_range: List[str], limit: int = 20, offset: int = 0
-) -> Dict[str, List]:
+    auth_token: SpotifyToken,
+    time_range: List[TimeRange],
+    limit: int = 20,
+    offset: int = 0,
+) -> Dict[TimeRange, List]:
     """ Return a Dictionary, labeled by time_range, of top Tracks. """
 
-    top_tracks: Dict[str, List] = {}
+    top_tracks: Dict[TimeRange, List] = {}
 
     for time in time_range:
         payload: Dict[str, Union[str, int]] = {
-            "time_range": time,
+            "time_range": time.value,
             "limit": limit,
             "offset": offset,
         }
 
         top_tracks.update(
             {
-                time: parse_spotify_json(
-                    requests.get(
-                        "https://api.spotify.com/v1/me/top/tracks",
-                        params=payload,
-                        headers={"Authorization": auth_token.access},
-                    ).json()
-                )
+                time: requests.get(
+                    "https://api.spotify.com/v1/me/top/tracks",
+                    params=payload,
+                    headers={
+                        "Authorization": TokenInterface.get_access_token(auth_token)
+                    },
+                ).json()["items"]
             }
         )
     return top_tracks
