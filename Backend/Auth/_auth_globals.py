@@ -17,8 +17,9 @@ SpotifyToken = Dict[str, Union[str, int]]
 FERNET_KEY = Fernet.generate_key()
 
 logging.basicConfig(
+    filename="Backend/logs/auth.log",
     format="%(asctime)s | [%(levelname)s]: %(message)s",
     datefmt="%m/%d/%Y %I:%M:%S %p",
-    level=20,
+    level=40,
 )
 auth_logger = logging.getLogger("backend.auth")

@@ -1,3 +1,8 @@
 /Backend/venv
 /.vscode
 /.mypy_cache
+/Backend/logs
+/__pycache__
+/Backend/__pycache__
+/Backend/Auth/__pycache__
+/Backend/Spwrapper/__pycache__

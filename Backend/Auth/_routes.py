@@ -5,8 +5,6 @@
 # Flask Endpoints/Routes
 
 # Imports
-from Flask.globals import session
-from Flask.helpers import url_for
 import flask
 import requests
 from ._spotify_token import TokenInterface
@@ -25,7 +23,7 @@ def get_spotify_redirect() -> Response:
                     "client_id": "",
                     "client_secret": "",
                     "response_type": "code",
-                    "redirect_uri": url_for("auth/spotifytoken"),
+                    "redirect_uri": flask.url_for("auth/spotifytoken"),
                     "scope": "",
                 },
             ).url
@@ -42,7 +40,7 @@ def get_raw_token() -> Response:
 
         if token_code:
 
-            session["token"] = TokenInterface.encrypt(
+            flask.session["token"] = TokenInterface.encrypt(
                 requests.post(
                     "https://accounts.spotify.com/api/token",
                     data={
@@ -52,7 +50,7 @@ def get_raw_token() -> Response:
                         "client_id": "",
                         "client_secret": "",
                     },
-                ).text
+                ).json()
             )
     except Exception as e:
         auth_logger.error("No Spotify Redirect Code: {}".format(e))

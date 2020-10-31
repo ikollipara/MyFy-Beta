@@ -5,7 +5,7 @@
 # SpotifyToken Interface Implementation
 
 from json import dumps, loads
-from .auth_globals import SpotifyToken, FERNET_KEY, auth_logger
+from ._auth_globals import SpotifyToken, FERNET_KEY, auth_logger
 from cryptography.fernet import Fernet
 import requests
 
@@ -15,8 +15,11 @@ class TokenInterface:
     def refresh(token: SpotifyToken) -> SpotifyToken:
         new_token: SpotifyToken = requests.post(
             "https://accounts.spotify.com/api/token",
-            data={"grant_type": "refresh_token", "refresh_token": token._refresh_token},
-            header={"Authorization": AUTH_GLOBALS.BASIC_KEY},
+            data={
+                "grant_type": "refresh_token",
+                "refresh_token": token["refresh_token"],
+            },
+            header={"Authorization": ""},
         ).json()
 
         return new_token
@@ -37,4 +40,4 @@ class TokenInterface:
 
     @staticmethod
     def get_access_token(token: SpotifyToken) -> str:
-        return token["access_token"]
+        return str(token["access_token"])
