@@ -1,7 +1,7 @@
-# spwrapper/__init__.py
+# backend/src/Auth/__init__.py
 # Ian Kollipara
 # 2020.10.21
-# Spotify Auth
+# Spotify Authentication Package
 # Package Init
 
 # Package Exports

@@ -1,2 +1,0 @@
-FLASK_APP=backend.py
-FLASK_PORT=5050

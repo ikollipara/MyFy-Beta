@@ -1,4 +1,4 @@
-# Spwrapper/search.py
+# backend/src/Spwrapper/search.py
 # Ian Kollipara
 # 2020.10.29
 # Wrapper calls for Spotify Web API
@@ -7,7 +7,7 @@
 # Imports
 from typing import Dict, List, Union
 from ._spwrapper_globals import SpotifyToken, SearchType
-from Backend.src.Auth import TokenInterface
+from src.Auth import TokenInterface
 import requests
 import functools
 

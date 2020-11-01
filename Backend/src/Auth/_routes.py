@@ -1,7 +1,7 @@
-# Auth/routes.py
+# backend/src/Auth/routes.py
 # Ian Kollipara
 # 2020.10.27
-# Spotify Auth Package
+# Spotify Authentication Package
 # Flask Endpoints/Routes
 
 # Imports
@@ -16,8 +16,6 @@ from src import app, Env
 @app.route("/auth")
 def get_spotify_redirect() -> Response:
     try:
-        print(Env.CLIENT_ID.value)
-        print(Env.CLIENT_SECRET.value)
         return flask.redirect(
             requests.get(
                 "https://accounts.spotify.com/authorize",

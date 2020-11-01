@@ -1,4 +1,4 @@
-# Backend/_backend_globals.py
+# backend/src/_backend_globals.py
 # Ian Kollipara
 # 2020.10.31
 # Backend Globals
@@ -7,8 +7,10 @@
 import logging
 from flask import Flask
 
+# Flask App Instance
 app = Flask(__name__)
 
+# TODO Fix Logging
 logging.basicConfig(
     filemode="Backend/logs/backend.log",
     format="%(asctime)s | [%(levelname)s]: %(message)s",

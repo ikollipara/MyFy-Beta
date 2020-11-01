@@ -1,9 +1,10 @@
-# Auth/spotify_token.py
+# backend/src/Auth/spotify_token.py
 # Ian Kollipara
 # 2020.10.21
-# MyFy Spotify Authentication
+# Spotify Authentication Package
 # SpotifyToken Interface Implementation
 
+# Imports
 from json import dumps, loads
 from ._auth_globals import SpotifyToken, FERNET_KEY, auth_logger
 from cryptography.fernet import Fernet

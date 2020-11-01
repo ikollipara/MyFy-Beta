@@ -1,4 +1,4 @@
-# Spwrapper/spwrapper_types.py
+# backend/src/Spwrapper/_spwrapper_globals.py
 # Ian Kollipara
 # 2020.10.20
 # Wrapper for Spotify Web API

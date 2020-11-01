@@ -1,11 +1,11 @@
-# Spwrapper/personalization.py
+# backend/src/Spwrapper/personalization.py
 # Ian Kollipara
 # 2020.10.20
 # Wrapper calls for Spotify Web API
 # Personalization Endpoints
 
 # Imports
-from Backend.Auth import TokenInterface
+from src.Auth import TokenInterface
 from ._spwrapper_globals import SpotifyToken, TimeRange
 from typing import List, Dict, Union
 import requests
