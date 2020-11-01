@@ -7,7 +7,7 @@
 # Imports
 from typing import Dict, List, Union
 from ._spwrapper_globals import SpotifyToken, SearchType
-from Backend.Auth import TokenInterface
+from Backend.src.Auth import TokenInterface
 import requests
 import functools
 

@@ -6,7 +6,7 @@
 
 # Imports
 from enum import Enum
-from Backend.Auth import auth_globals
+from Backend.src.Auth import auth_globals
 
 SpotifyToken = auth_globals.SpotifyToken
 

@@ -10,21 +10,23 @@ import requests
 from ._spotify_token import TokenInterface
 from werkzeug.wrappers import Response
 from ._auth_globals import auth_logger
-from Backend import app
+from src import app, Env
 
 
 @app.route("/auth")
 def get_spotify_redirect() -> Response:
     try:
+        print(Env.CLIENT_ID.value)
+        print(Env.CLIENT_SECRET.value)
         return flask.redirect(
             requests.get(
                 "https://accounts.spotify.com/authorize",
                 params={
-                    "client_id": "",
-                    "client_secret": "",
+                    "client_id": Env.CLIENT_ID.value,
+                    "client_secret": Env.CLIENT_SECRET.value,
                     "response_type": "code",
-                    "redirect_uri": flask.url_for("auth/spotifytoken"),
-                    "scope": "",
+                    "redirect_uri": "http://localhost:5050/auth/spotifytoken",
+                    "scope": "user-top-read",
                 },
             ).url
         )
@@ -46,9 +48,9 @@ def get_raw_token() -> Response:
                     data={
                         "grant_type": "authorization_code",
                         "code": token_code,
-                        "redirect_uri": "",
-                        "client_id": "",
-                        "client_secret": "",
+                        "redirect_uri": "http://localhost:5050/auth/spotifytoken",
+                        "client_id": Env.CLIENT_ID.value,
+                        "client_secret": Env.CLIENT_SECRET.value,
                     },
                 ).json()
             )
