@@ -15,6 +15,12 @@ from src import app, Env
 
 @app.route("/auth")
 def get_spotify_redirect() -> Response:
+    """Redirect User to Spotify Authentication.
+
+    Given a good request, redirect the user to Spotify
+    Authentication Server. Return a Redirect Action.
+    """
+
     try:
         return flask.redirect(
             requests.get(
@@ -35,6 +41,12 @@ def get_spotify_redirect() -> Response:
 
 @app.route("/auth/spotifytoken")
 def get_raw_token() -> Response:
+    """Create SpotifyToken and store in web session.
+
+    Given a good Spotify code, create and encrypt a Spotify
+    Token via a POST request to accounts.spotify.com/api/token.
+    Return a redirect to the homepage.
+    """
     try:
         token_code = flask.request.args.get("code")
 

@@ -12,3 +12,4 @@ app.config.from_object(Config)
 
 # Loading Flask Routes
 from .Auth._routes import *
+from .Analysis import *

@@ -6,17 +6,17 @@
 
 # Imports
 from enum import Enum
-from Backend.src.Auth import auth_globals
 
-SpotifyToken = auth_globals.SpotifyToken
-
-
+# Time Range Enum for use in
+# Personalization Endpoint Calls
 class TimeRange(Enum):
     SHORT = "short_term"
     MEDIUM = "medium_term"
     LONG = "long_term"
 
 
+# Search Type Enum for use in
+# Search Endpoint Calls
 class SearchType(Enum):
     ALBUM = "album"
     ARTIST = "artist"

@@ -6,5 +6,6 @@
 
 # Package Exports
 from ._spwrapper_globals import SearchType, TimeRange
-from .personalization import *
-from .search import *
+from .personalization import get_user_top_artists, get_user_top_tracks
+from .search import search
+from .artist import get_artist

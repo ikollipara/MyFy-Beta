@@ -5,8 +5,8 @@
 # Personalization Endpoints
 
 # Imports
-from src.Auth import TokenInterface
-from ._spwrapper_globals import SpotifyToken, TimeRange
+from src.Auth import TokenInterface, SpotifyToken
+from ._spwrapper_globals import TimeRange
 from typing import List, Dict, Union
 import requests
 
@@ -17,7 +17,24 @@ def get_user_top_artists(
     limit: int = 20,
     offset: int = 0,
 ) -> Dict[TimeRange, List]:
-    """ Return a Dictionary, labeled by time_range, of top Artists. """
+    """Return User Top Artists for given TimeRange(s).
+
+    Given a correct SpotifyToken, call the Spotify
+    API endpoint for Personalization, with the given
+    TimeRange(s), limit, and offset. Return a Dictionary
+    with TimeRanges as Keys.
+
+    Parameters |     Type          |  Description
+    -----------|-------------------|----------------------------------
+    auth_token | SpotifyToken      |  A Valid Spotify Token Dictionary
+    time_range | List of TimeRange |  A List of Time Ranges to query
+    limit      | Int               |  Total items in each value; Default to 20
+    offset     | Int               |  Adjust returned value numbers (0-20 -> 4-24)
+
+    Return a Dictionary with Keys based upon given TimeRange(s), with values
+    being lists of length limit.
+    See https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/ for more detail.
+    """
 
     top_artists: Dict[TimeRange, List] = {}
 
@@ -30,11 +47,11 @@ def get_user_top_artists(
 
         top_artists.update(
             {
-                time: requests.get(
+                time.value: requests.get(
                     "https://api.spotify.com/v1/me/top/artists",
                     params=payload,
                     headers={
-                        "Authorization": TokenInterface.get_access_token(auth_token)
+                        "Authorization": f"Bearer {TokenInterface.get_access_token(auth_token)}"
                     },
                 ).json()["items"]
             }
@@ -48,7 +65,24 @@ def get_user_top_tracks(
     limit: int = 20,
     offset: int = 0,
 ) -> Dict[TimeRange, List]:
-    """ Return a Dictionary, labeled by time_range, of top Tracks. """
+    """Return User Top Tracks for given TimeRange(s).
+
+    Given a correct SpotifyToken, call the Spotify
+    API endpoint for Personalization, with the given
+    TimeRange(s), limit, and offset. Return a Dictionary
+    with TimeRanges as Keys.
+
+    Parameters |     Type          |  Description
+    -----------|-------------------|----------------------------------
+    auth_token | SpotifyToken      |  A Valid Spotify Token Dictionary
+    time_range | List of TimeRange |  A List of Time Ranges to query
+    limit      | Int               |  Total items in each value; Default to 20
+    offset     | Int               |  Adjust returned value numbers (0-20 -> 4-24)
+
+    Return a Dictionary with Keys based upon given TimeRange(s), with values
+    being lists of length limit.
+    See https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/ for more detail.
+    """
 
     top_tracks: Dict[TimeRange, List] = {}
 
@@ -61,11 +95,11 @@ def get_user_top_tracks(
 
         top_tracks.update(
             {
-                time: requests.get(
+                time.value: requests.get(
                     "https://api.spotify.com/v1/me/top/tracks",
                     params=payload,
                     headers={
-                        "Authorization": TokenInterface.get_access_token(auth_token)
+                        "Authorization": f"Bearer {TokenInterface.get_access_token(auth_token)}"
                     },
                 ).json()["items"]
             }
