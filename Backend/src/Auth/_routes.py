@@ -10,7 +10,7 @@ import requests
 from ._spotify_token import TokenInterface
 from werkzeug.wrappers import Response
 from ._auth_globals import auth_logger
-from src import app, Env
+from src import app, Env, Display
 
 
 @app.route("/auth")
@@ -22,6 +22,9 @@ def get_spotify_redirect() -> Response:
     """
 
     try:
+        flask.session["redirect"] = Display[
+            str(flask.request.args.get("display")).capitalize()
+        ]
         return flask.redirect(
             requests.get(
                 "https://accounts.spotify.com/authorize",
@@ -36,7 +39,7 @@ def get_spotify_redirect() -> Response:
         )
     except Exception as e:
         auth_logger.error("Failed to Send in Token Request: {}".format(e))
-        return flask.redirect("/")
+        return flask.redirect(flask.session["redirect"])
 
 
 @app.route("/auth/spotifytoken")
@@ -67,4 +70,4 @@ def get_raw_token() -> Response:
     except Exception as e:
         auth_logger.error("No Spotify Redirect Code: {}".format(e))
 
-    return flask.redirect("/")
+    return flask.redirect(flask.session["redirect"])

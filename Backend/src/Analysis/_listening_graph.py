@@ -15,6 +15,11 @@ import flask
 
 @app.route("/api/listening_graph")
 def get_listening_graph():
+
+    flask.session["token"] = TokenInterface.encrypt(
+        TokenInterface.refresh(TokenInterface.decrypt(flask.session["token"]))
+    )
+
     try:
         listening_graph_datapoints: Dict[str, Tuple[int, int]] = {}
         user_access_token = TokenInterface.decrypt(flask.session["token"])

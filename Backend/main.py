@@ -6,4 +6,4 @@
 # Imports
 from src import app
 
-app.run(host="localhost", port=5050)
+app.run(host="localhost", port=5050, debug=True)
