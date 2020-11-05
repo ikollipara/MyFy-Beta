@@ -23,7 +23,7 @@ def get_spotify_redirect() -> Response:
 
     try:
         flask.session["redirect"] = Display[
-            str(flask.request.args.get("display")).capitalize()
+            str(flask.request.headers.get("display")).capitalize()
         ]
         return flask.redirect(
             requests.get(
