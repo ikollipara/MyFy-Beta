@@ -1,0 +1,14 @@
+FROM python:3.8
+
+WORKDIR /
+
+ADD main.py ./
+ADD routes.py ./
+COPY requirements.txt ./
+COPY ./spotifywrapper ./spotifywrapper
+
+EXPOSE 5050
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["python", "./main.py"]

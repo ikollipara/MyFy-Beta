@@ -1,19 +1,18 @@
-# backend/src/Spwrapper/search.py
+# spotifywrapper/search.py
 # Ian Kollipara
-# 2020.10.29
-# Wrapper calls for Spotify Web API
+# 2020.11.09
+# Spotify API Wrapper
 # Search Endpoint
 
 # Imports
-from typing import Dict, List, Union
-from ._spwrapper_globals import SearchType
-from src.Auth import TokenInterface, SpotifyToken
-import requests
-import functools
+from typing import Union, Dict, List
+from requests import get
+from ._globals import SearchType, AccessToken
+from functools import reduce
 
 
 def search(
-    auth_token: SpotifyToken,
+    auth_token: AccessToken,
     query: str,
     search_type: List[SearchType],
     limit: int = 20,
@@ -26,7 +25,7 @@ def search(
 
     Parameters  |        Type        | Description
     ------------|--------------------|----------------------------------------------------------
-    auth_token  | SpotifyToken       | A Valid SpotifyToken Dictionary
+    auth_token  | AccessToken        | A Valid Spotify Access Token
     query       | Str                | The text to search against
     search_type | List of SearchType | What formats to search
     limit       | Int                | Total Length of Returned List
@@ -37,19 +36,17 @@ def search(
     """
     payload: Dict[str, Union[str, int]] = {
         "q": query.replace(" ", "%20"),
-        "type": functools.reduce(
+        "type": reduce(
             lambda a, x: a + "{},".format(x), map(lambda x: x.value, search_type), ""
         )[:-1],
         "limit": limit,
         "offset": offset,
     }
 
-    return requests.get(
+    return get(
         "https://api.spotify.com/v1/search/",
         params=payload,
         headers={
-            "Authorization": "Bearer {}".format(
-                TokenInterface.get_access_token(auth_token)
-            )
+            "Authorization": f"Bearer {auth_token}",
         },
     ).json()["items"]

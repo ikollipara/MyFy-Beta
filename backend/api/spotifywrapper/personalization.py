@@ -1,18 +1,17 @@
-# backend/src/Spwrapper/personalization.py
+# spotifywrapper/personalization.py
 # Ian Kollipara
-# 2020.10.20
-# Wrapper calls for Spotify Web API
-# Personalization Endpoints
+# 2020.11.09
+# Spotify API Wrapper
+# Personalization Endpoint
 
 # Imports
-from src.Auth import TokenInterface, SpotifyToken
-from ._spwrapper_globals import TimeRange
+from ._globals import TimeRange, AccessToken
 from typing import List, Dict, Union
-import requests
+from requests import get
 
 
 def get_user_top_artists(
-    auth_token: SpotifyToken,
+    auth_token: AccessToken,
     time_range: List[TimeRange],
     limit: int = 20,
     offset: int = 0,
@@ -26,7 +25,7 @@ def get_user_top_artists(
 
     Parameters |     Type          |  Description
     -----------|-------------------|----------------------------------
-    auth_token | SpotifyToken      |  A Valid Spotify Token Dictionary
+    auth_token | AccessToken       |  A Valid Spotify Acess Token
     time_range | List of TimeRange |  A List of Time Ranges to query
     limit      | Int               |  Total items in each value; Default to 20
     offset     | Int               |  Adjust returned value numbers (0-20 -> 4-24)
@@ -47,12 +46,10 @@ def get_user_top_artists(
 
         top_artists.update(
             {
-                time.value: requests.get(
+                time.value: get(
                     "https://api.spotify.com/v1/me/top/artists",
                     params=payload,
-                    headers={
-                        "Authorization": f"Bearer {TokenInterface.get_access_token(auth_token)}"
-                    },
+                    headers={"Authorization": f"Bearer {auth_token}"},
                 ).json()["items"]
             }
         )
@@ -60,7 +57,7 @@ def get_user_top_artists(
 
 
 def get_user_top_tracks(
-    auth_token: SpotifyToken,
+    auth_token: AccessToken,
     time_range: List[TimeRange],
     limit: int = 20,
     offset: int = 0,
@@ -74,7 +71,7 @@ def get_user_top_tracks(
 
     Parameters |     Type          |  Description
     -----------|-------------------|----------------------------------
-    auth_token | SpotifyToken      |  A Valid Spotify Token Dictionary
+    auth_token | AccessToken       |  A Valid Spotify Access Token
     time_range | List of TimeRange |  A List of Time Ranges to query
     limit      | Int               |  Total items in each value; Default to 20
     offset     | Int               |  Adjust returned value numbers (0-20 -> 4-24)
@@ -95,12 +92,10 @@ def get_user_top_tracks(
 
         top_tracks.update(
             {
-                time.value: requests.get(
+                time.value: get(
                     "https://api.spotify.com/v1/me/top/tracks",
                     params=payload,
-                    headers={
-                        "Authorization": f"Bearer {TokenInterface.get_access_token(auth_token)}"
-                    },
+                    headers={"Authorization": f"Bearer {auth_token}"},
                 ).json()["items"]
             }
         )

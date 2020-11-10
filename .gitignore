@@ -1,32 +1,12 @@
-/backend/venv
-/.vscode
 /.mypy_cache
-/backend/logs
-/backend/src/_env.py
-/__pycache__
-/backend/__pycache__
-/backend/src/__pycache__
-/backend/src/Auth/__pycache__
-/backend/src/Spwrapper/__pycache__
-/backend/src/Analysis/__pycache__
+/backend/api/.mypy_cache
+/backend/api/.vscode
+/backend/api/venv
 
-/frontend/node_modules
-/frontend/.pnp
-/frontend/.pnp.js
+/backend/auth/__pycache__
+/backend/auth/.mypy_cache
+/backend/auth/.vscode
+/backend/auth/venv
 
-# testing
-/frontend/coverage
-
-# production
-/frontend/build
-
-# misc
-/frontend/.DS_Store
-/frontend/.env.local
-/frontend/.env.development.local
-/frontend/.env.test.local
-/frontend/.env.production.local
-
-/frontend/npm-debug.log*
-/frontend/yarn-debug.log*
-/frontend/yarn-error.log*
+/web/.next
+/web/node_modules
