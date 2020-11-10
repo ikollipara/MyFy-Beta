@@ -32,3 +32,12 @@ class SearchType(Enum):
     TRACK = "track"
     SHOW = "show"
     EPISODE = "episode"
+
+
+class SeedType(Enum):
+    ARTIST = "seed_artists"
+    GENRE = "seed_genres"
+    TRACK = "seed_tracks"
+
+
+SpotifyID = str
