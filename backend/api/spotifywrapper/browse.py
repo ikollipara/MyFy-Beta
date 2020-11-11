@@ -5,16 +5,13 @@
 # Browse Enpoint
 
 # Imports
-import flask
-import requests
+from requests import get
 from typing import List, Dict, Union
 from functools import reduce
-from Backend.src.Auth import SpotifyToken, TokenInterface
-from ._spwrapper_globals import SpotifyID, SeedType
-
+from ._globals import AccessToken, SpotifyID, SeedType
 
 def get_reccomendations(
-    auth_token: SpotifyToken, seeds: Dict[SeedType, SpotifyID], limit: int = 10
+    auth_token: AccessToken, seeds: Dict[SeedType, SpotifyID], limit: int = 10
 ) -> Dict:
 
     payload: Dict[str, Union[str, int]] = {"limit": limit}
@@ -24,10 +21,10 @@ def get_reccomendations(
             (key.value, reduce(lambda acc, item: acc + f"{item},", value, ""))[:-1]
         )
 
-    return requests.get(
+    return get(
         "https://api.spotify.com/v1/reccomendations",
         params=payload,
         headers={
-            "Authorization": f"Bearer {TokenInterface.get_access_token(auth_token)}"
+            "Authorization": f"Bearer {auth_token}"
         },
     ).json()

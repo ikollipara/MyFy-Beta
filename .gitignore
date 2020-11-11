@@ -7,6 +7,7 @@
 /backend/auth/.mypy_cache
 /backend/auth/.vscode
 /backend/auth/venv
+/backend/auth/spotify.env
 
 /web/.next
 /web/node_modules
