@@ -6,7 +6,7 @@
 
 # Imports
 from requests import get
-from typing import List, Dict, Union
+from typing import Dict, Union
 from functools import reduce
 from ._globals import AccessToken, SpotifyID, SeedType
 

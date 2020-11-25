@@ -9,5 +9,6 @@
 /backend/auth/venv
 /backend/auth/spotify.env
 
-/web/.next
+/old/
 /web/node_modules
+/web/build/*
